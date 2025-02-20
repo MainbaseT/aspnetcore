@@ -1,8 +1,14 @@
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
+[ApiExplorerSettings(GroupName = "controllers")]
 public class TestController : ControllerBase
 {
     [HttpGet]
@@ -10,6 +16,13 @@ public class TestController : ControllerBase
     public string GetByIdAndName(RouteParamsContainer paramsContainer)
     {
         return paramsContainer.Id + "_" + paramsContainer.Name;
+    }
+
+    [HttpGet]
+    [Route("/gettypedresult")]
+    public Ok<MvcTodo> GetTypedResult()
+    {
+        return TypedResults.Ok(new MvcTodo("Title", "Description", true));
     }
 
     [HttpPost]
@@ -26,6 +39,7 @@ public class TestController : ControllerBase
 
         [FromRoute]
         [MinLength(5)]
+        [UnconditionalSuppressMessage("Trimming", "IL2026:RequiresUnreferencedCode", Justification = "MinLengthAttribute works without reflection on string properties.")]
         public string? Name { get; set; }
     }
 

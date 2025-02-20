@@ -1,3 +1,1 @@
 #nullable enable
-Microsoft.AspNetCore.Components.ExcludeFromInteractiveRoutingAttribute
-Microsoft.AspNetCore.Components.ExcludeFromInteractiveRoutingAttribute.ExcludeFromInteractiveRoutingAttribute() -> void
